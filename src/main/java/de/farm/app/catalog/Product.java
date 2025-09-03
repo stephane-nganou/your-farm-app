@@ -24,5 +24,11 @@ public class Product extends BaseEntity{
     @Column(nullable=false)
     private String currency = "FCFA";
 
-    ManyToOne(optional=false) private Category category;
+    @ManyToOne(optional=false)
+    private Category category;
+
+    private String unit; // e.g., "kg", "pack"
+    private String imageUrl;
+    private boolean active=true;
+    private double taxRate=0.0;
 }
