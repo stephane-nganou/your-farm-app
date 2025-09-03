@@ -3,11 +3,15 @@ package de.farm.app.orders;
 import de.farm.app.common.BaseEntity;
 import de.farm.app.payments.ProviderType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import lombok.Getter;
+import lombok.Setter;
 
+@Entity @Getter @Setter
 public class Payment extends BaseEntity {
 
     @OneToOne(optional=false)
