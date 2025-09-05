@@ -1,15 +1,28 @@
 version: "3.8"
 services:
-  db:
-    image: postgres:16
+  postgres:
+    container_name: postgres-sql
+    image: postgres:17
     environment:
-      POSTGRES_DB: yourfarm
-      POSTGRES_USER: yourfarm
-      POSTGRES_PASSWORD: yourfarm
-    ports: ["5432:5432"]
-    volumes: ["pgdata:/var/lib/postgresql/data"]
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data/postgres
+      POSTGRES_DB: farm_db
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
   redis:
     image: redis:7
     ports: ["6379:6379"]
+
+networks:
+  postgres:
+    driver: bridge
+
 volumes:
-  pgdata:
+  postgres:
