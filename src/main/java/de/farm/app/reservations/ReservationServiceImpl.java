@@ -4,12 +4,15 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
 import de.farm.app.catalog.InventoryRepository;
 import de.farm.app.catalog.ProductRepository;
 import de.farm.app.users.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
+@Service
 @RequiredArgsConstructor
 public class ReservationServiceImpl implements ReservationService {
 

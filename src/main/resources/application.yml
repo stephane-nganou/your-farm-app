@@ -28,10 +28,10 @@ spring:
       port: 6379
 
 jwt:
-  issuer: yourFarm
+  issuer: "Le Bon Pork"
   accessTokenTtlMinutes: 30
   refreshTokenTtlDays: 7
-  secret: change-this-in-prod
+  secret: 4f9d7a2b8c4e6g8i0k2m4n6p8r0t2v4w6y8z0a2c4e6g8i0k2m4n6p8r0t2v4w6y8z
 
 cors:
   allowed-origins: "http://localhost:4200,https://farmapp.com"

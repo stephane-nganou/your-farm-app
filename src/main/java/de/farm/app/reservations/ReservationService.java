@@ -4,9 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.stereotype.Service;
 
-@Service
 public interface ReservationService {
 
     public Reservation create(UUID userId, UUID productId, int qty, LocalDate pickupDate);

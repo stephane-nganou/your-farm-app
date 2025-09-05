@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
+@Service
 @RequiredArgsConstructor
 public class CatalogServiceImpl implements CatalogService {
 

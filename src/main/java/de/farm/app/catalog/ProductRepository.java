@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     @Query("""
-            SELECT p FROM PRODUCT p
+            SELECT p FROM Product p
             WHERE p.active=true
             AND (lower(p.name) like lower(concat('%',:query,'%')) OR
             lower(p.description) like lower(concat('%',:query,'%')))
