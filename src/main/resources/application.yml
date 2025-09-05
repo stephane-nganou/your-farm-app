@@ -5,9 +5,9 @@ spring:
   application:
     name: Farming-App-Backend
   datasource:
-    url: jdbc:postgresql://localhost:5432/farmapp
-    username: farmapp
-    password: farmapp
+    url: jdbc:postgresql://localhost:5432/farm_db
+    username: postgres
+    password: postgres
   jpa:
     open-in-view: false
     hibernate:
