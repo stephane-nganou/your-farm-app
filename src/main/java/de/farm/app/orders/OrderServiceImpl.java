@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import de.farm.app.catalog.InventoryRepository;
@@ -50,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
         for (var item : request.items()) {
             var product = productRepo.findById(item.productId()).orElseThrow();
             var inv = inventoryRepo.findByProduct_Id(product.getId())
-                .orElseThrow(() -> new IllegalStateException("No inventory for product " + product.getName()));
+                    .orElseThrow(() -> new IllegalStateException("No inventory for product " + product.getName()));
 
             int qty = item.quantity();
             if (qty <= 0) {
@@ -153,5 +154,11 @@ public class OrderServiceImpl implements OrderService {
             order.setStatus(OrderStatus.CANCELLED);
             orderRepo.save(order);
         }
+    }
+
+    // HousekeepingTasks
+    @Scheduled(fixedDelay = 300000) // every 5 minutes
+    public void expirePendingOrders() {
+        cancelExpiredPendingOrders();
     }
 }
