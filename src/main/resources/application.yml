@@ -19,6 +19,7 @@ spring:
         format_sql: true
   flyway:
     enabled: false # will be enable in prod
+    #baseline-on-migrate: true
   cache:
     type: redis
   data:
@@ -45,6 +46,33 @@ management:
       probes:
         enabled: true
 
+frontend:
+  base-url: "http://localhost:4200" # https://yourfarm.com used to build checkout success/cancel URLs
+
 # add paymend config
-#payment
+payment:
+  stripe:
+    secretKey: "sk_live_or_test"
+    webhookSecret: "whsec_..."
+  paypal:
+    clientId: "..."
+    clientSecret: "..."
+    environment: "sandbox" # or "live"
+    webhookId: "..." # PayPal webhook id registered in dashboard
+    base-url: "..."
+  orangemoney:
+    oauth:
+      clientId: "..."
+      clientSecret: "..."
+      tokenUrl: "https://api.orange.com/oauth/v3/token"
+    webpay:
+      baseUrl: "https://api.orange.com/orange-money-webpay/cm/v1"
+      merchantKey: "..." # as per Orange Money docs
+      notifUrl: "https://api.yourfarm.com/api/v1/payments/webhooks/orangemoney"
+      returnUrl: "https://yourfarm.com/checkout/result"
+      signatureSecret: "..." # used to verify callbacks if applicable
+  flutterwave:
+    baseUrl: "https://api.flutterwave.com/v3"
+    secretKey: "FLWSECK-..."
+    redirectUrl: "https://yourfarm.com/checkout/result"
 

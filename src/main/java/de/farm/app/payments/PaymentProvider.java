@@ -1,5 +1,7 @@
 package de.farm.app.payments;
 
+import java.util.Map;
+
 import de.farm.app.orders.Order;
 import de.farm.app.payments.dto.PaymentInitResponse;
 
@@ -9,5 +11,5 @@ public interface PaymentProvider {
 
     PaymentInitResponse initiatePayment(Order order);
 
-    void handleWebhook(String signature, String payload);
+    void handleWebhook(Map<String, String> headers, String payload);
 }

@@ -1,6 +1,7 @@
 package de.farm.app.payments;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +24,14 @@ public class WebhookController {
     }
 
     @PostMapping("/{provider}")
-    public ResponseEntity<Void> webhook(@PathVariable String provider, 
-        @RequestHeader(value = "X-Signature", required = false) String sig,
-        @RequestBody String payload) {
-            
-        var type = ProviderType.valueOf(provider.toUpperCase());
-        providers.stream().filter(prov -> prov.type() == type)
-            .findFirst().orElseThrow().handleWebhook(sig, payload);
+    public ResponseEntity<Void> webhook(@PathVariable String provider,
+            @RequestHeader Map<String, String> headers,
+            @RequestBody String payload) {
 
+        var type = ProviderType.valueOf(provider.toUpperCase());
+        var prov = providers.stream().filter(p -> p.type() == type).findFirst().orElseThrow();
+
+        prov.handleWebhook(headers, payload);
         return ResponseEntity.ok().build();
     }
 }
