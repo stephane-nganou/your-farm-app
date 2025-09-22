@@ -8,6 +8,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -18,10 +19,8 @@ import de.farm.app.payments.PaymentFacade;
 import de.farm.app.payments.PaymentProvider;
 import de.farm.app.payments.ProviderType;
 import de.farm.app.payments.dto.PaymentInitResponse;
-import lombok.RequiredArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
 public class OrangeMoneyPaymentProvider implements PaymentProvider {
 
     @Value("${payment.orangemoney.oauth.clientId}")
@@ -51,6 +50,10 @@ public class OrangeMoneyPaymentProvider implements PaymentProvider {
     private final PaymentFacade facade;
     private final WebClient web = WebClient.builder().build();
     private final AtomicReference<Token> cachedToken = new AtomicReference<>();
+
+    public OrangeMoneyPaymentProvider(@Lazy PaymentFacade facade){
+        this.facade = facade;
+    }
 
     record Token(String value, long expiresAt) {
 

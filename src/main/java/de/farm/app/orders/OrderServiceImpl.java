@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     private final ProductRepository productRepo;
@@ -32,6 +32,24 @@ public class OrderServiceImpl implements OrderService {
     private final UserRepository userRepo;
     private final PaymentFacade paymentFacade;
     private final Notifier notifier;
+
+    public OrderServiceImpl(
+        ProductRepository productRepo,
+        InventoryRepository inventoryRepo,
+        OrderRepository orderRepo,
+        PaymentRepository paymentRepo,
+        Notifier notifier,
+        UserRepository userRepo,
+        @Lazy PaymentFacade paymentFacade
+    ){
+        this.productRepo = productRepo;
+        this.inventoryRepo = inventoryRepo;
+        this.orderRepo = orderRepo;
+        this.paymentRepo = paymentRepo;
+        this.userRepo = userRepo;
+        this.paymentFacade = paymentFacade;
+        this.notifier = notifier;
+    }
 
     @Override
     @Transactional

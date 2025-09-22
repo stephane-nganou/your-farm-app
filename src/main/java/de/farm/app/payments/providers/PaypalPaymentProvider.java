@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,10 +31,8 @@ import de.farm.app.payments.PaymentFacade;
 import de.farm.app.payments.PaymentProvider;
 import de.farm.app.payments.ProviderType;
 import de.farm.app.payments.dto.PaymentInitResponse;
-import lombok.RequiredArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
 public class PaypalPaymentProvider implements PaymentProvider {
 
     @Value("${payment.paypal.clientId}")
@@ -56,6 +56,12 @@ public class PaypalPaymentProvider implements PaymentProvider {
     private final PaymentFacade facade;
 
     private final RestTemplate restTemplate;
+
+    @Autowired
+    public PaypalPaymentProvider(RestTemplate restTemplate, @Lazy PaymentFacade facade){
+        this.restTemplate = restTemplate;
+        this.facade = facade;
+    }
 
     @Override
     public ProviderType type() {
