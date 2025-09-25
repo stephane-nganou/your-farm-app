@@ -31,15 +31,18 @@ public class RateLimitFilter implements Filter {
         var req = (HttpServletRequest) request;
         var res = (HttpServletResponse) response;
 
-        var key = req.getRemoteAddr() + ":" + req.getRequestURI();
+        String key = req.getRemoteAddr() + ":" + req.getRequestURI();
         var now = Instant.now().getEpochSecond();
 
         windows.compute(key, (k, w) -> {
             if (w == null || now >= w.reset) {
-                return new Window(1, now + 1); // 1-second window
+                // 1-second window
+                return new Window(1, now + 1);
 
-            }if (w.count >= 30) {
-                return w; // 30 req/sec per IP per path
+            }
+            // 30 req/sec per IP per path
+            if (w.count >= 30) {
+                return w;
 
             }
             

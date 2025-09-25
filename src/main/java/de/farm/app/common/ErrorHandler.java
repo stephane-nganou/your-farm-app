@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ErrorHandler {
-
+// To do: handle pro
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, String>> badReq(IllegalArgumentException ex) {
         return ResponseEntity.badRequest().body(Map.of("error", ex.getMessage()));
